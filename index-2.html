@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Mahasiswa</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #e0f7fa;
+        margin: 0;
+        padding: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 12px;
+        text-align: center;
+      }
+      th {
+        background-color: #00796b;
+        color: #ffffff;
+      }
+      td {
+        background-color: #b2ebf2;
+        color: #004d40;
+      }
+      th:hover {
+        background-color: #004d40;
+      }
+      td:hover {
+        background-color: #80deea;
+      }
+      input,
+      select {
+        margin: 10px 0;
+        padding: 8px;
+        width: calc(100% - 16px);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>DATA MAHASISWA</h1>
+    </header>
+
+    <main>
+      <div id="tabelContainer"></div>
+
+      <input type="text" id="inputTeks" placeholder="Ketik sesuatu..." />
+      <p id="pesanKetik"></p>
+
+      <select id="pilihan">
+        <option value="">Pilih jurusan...</option>
+        <option value="Teknik Informatika">Teknik Informatika</option>
+        <option value="Sistem Informasi">Sistem Informasi</option>
+        <option value="Desain Grafis">Desain Grafis</option>
+        <option value="Akuntansi">Akuntansi</option>
+        <option value="Manajemen">Manajemen</option>
+      </select>
+      <p id="pesanPilihan"></p>
+
+      <p id="pesanKlik"></p>
+    </main>
+
+    <script>
+      function buatTabel() {
+        var data = [
+          ["Nama", "NIM", "Kelas", "Hobi", "Alamat"],
+          ["Rudi", "24001", "3B", "Bersepeda", "Jakarta"],
+          ["Siti", "24002", "3B", "Membaca", "Bandung"],
+          ["Andi", "24003", "3B", "Berenang", "Bali"],
+          ["Nina", "24004", "3B", "Melukis", "Surabaya"],
+          ["Budi", "24005", "3B", "Fotografi", "Yogyakarta"],
+        ];
+
+        var container = document.getElementById("tabelContainer");
+        var tabel = document.createElement("table");
+
+        data.forEach((row, i) => {
+          var baris = tabel.insertRow();
+          row.forEach((cell) => {
+            var sel =
+              i === 0
+                ? document.createElement("th")
+                : document.createElement("td");
+            sel.textContent = cell;
+            baris.appendChild(sel);
+          });
+        });
+
+        tabel.addEventListener("click", function () {
+          document.getElementById("pesanKlik").textContent =
+            "Tabel telah diklik!";
+        });
+
+        container.innerHTML = "";
+        container.appendChild(tabel);
+      }
+
+      document
+        .getElementById("inputTeks")
+        .addEventListener("keydown", function (event) {
+          document.getElementById("pesanKetik").textContent =
+            "Kamu mengetik: " + event.key;
+        });
+
+      document
+        .getElementById("pilihan")
+        .addEventListener("change", function () {
+          document.getElementById("pesanPilihan").textContent =
+            "Kamu memilih: " + this.value;
+        });
+
+      window.onload = buatTabel;
+    </script>
+  </body>
+</html>
